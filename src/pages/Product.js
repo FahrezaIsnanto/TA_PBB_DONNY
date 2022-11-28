@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Card, Button, Container, Row, Col, Image} from 'react-bootstrap';
+import ProductCard from "../components/ProductCard";
+import { Container, Row, Col} from 'react-bootstrap';
 import '../pages/product.css';
 
 const Product = () => {
@@ -13,7 +14,7 @@ const Product = () => {
     }
     useEffect(() => {
         getDataProducts();
-    },
+    },[]
     );
         return(
             <Container >
@@ -21,34 +22,17 @@ const Product = () => {
                 <Row md={6} className="p-5" >
                     {Products.map((product) => {
                         return(
+                            <div key={product.id}>
                         <Col > 
-                        <CardProduct
-                        key={product.id}
-                        description={product.description}
-                        title={product.title}
-                        price={product.price}
-                        image={product.image}/> 
-                        </Col>)
+                        <ProductCard
+                        product={product}/> 
+                        </Col>
+                        </div>)
                         })
                     }
                 </Row>
             </Container>
         )
-    }
-    function CardProduct(props) {
-        return (
-        <Card className="card">
-            <div border="primary" className="product">
-            <Image variant="top" src={props.image} height="150" width="125" />
-            <Card.Body>
-            <Card.Title className="text-start title h3" variant = "light" maxlength="20">{props.title}</Card.Title>
-            <Card.Title className="text-start text-warning">${props.price}</Card.Title>
-            <Button variant="primary">Details</Button>
-            </Card.Body>
-            </div>
-        </Card>
-
-        );
     }
 
 export default Product;
